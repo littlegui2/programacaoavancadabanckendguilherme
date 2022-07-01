@@ -5,6 +5,9 @@ const fs = require('fs');
 const path = require('path');
 
 http.createServer((req, res) => {
+    
+   res.writeHead(200, { "Access-Control-Allow-Origin": "*" })
+
    const { name,url,del } = URL.parse(req.url,true).query
 
    if(!name || !url) 
