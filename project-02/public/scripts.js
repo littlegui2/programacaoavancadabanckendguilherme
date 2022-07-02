@@ -1,3 +1,9 @@
+const EventEmitter = require('events')
+const fs = require('fs')
+const { dirname } = require('path')
+const path = require('path')
+const data = require('./api/urls.json')
+
 const ul = document.querySelector('ul')
 const input = document.querySelector('input')
 const form = document.querySelector('form')
@@ -16,6 +22,8 @@ function addElement({ name, url }) {
     a.href = url
     a.innerHTML = name
     a.target = "_blank"
+    
+
 
     trash.innerHTML = "x"
     trash.onclick = () => removeElement(trash)
@@ -29,6 +37,7 @@ function removeElement(element) {
     if (confirm('Tem certeza que deseja deletar?'))
         element.parentNode.remove()
 }
+
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -47,6 +56,7 @@ form.addEventListener('submit', (event) => {
         return alert('Digite a url da maneira correta.')
 
     addElement({ name, url })
+    adicionarurl({ name , url})
 
     input.value = ''
 })
