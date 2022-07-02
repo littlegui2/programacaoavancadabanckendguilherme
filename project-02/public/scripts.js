@@ -1,19 +1,15 @@
-const EventEmitter = require('events')
-const fs = require('fs')
-const { dirname } = require('path')
-const path = require('path')
-const data = require('./api/urls.json')
-
 const ul = document.querySelector('ul')
 const input = document.querySelector('input')
 const form = document.querySelector('form')
 
+//função assicrona para buscar o elemento no banco de dados 
 async function load(){
     const res = await fetch('http://localhost:3000/').then(data => data.json())
     res.urls.map(({name , url}) => addElement({name ,url}))
 }
 load()
 
+//funcao para adicionar na lista no html
 function addElement({ name, url }) {
     const li = document.createElement('li')
     const a = document.createElement("a")
@@ -32,13 +28,13 @@ function addElement({ name, url }) {
     li.append(trash)
     ul.append(li)
 }
-
+//funcao para remover na lista no html
 function removeElement(element) {
     if (confirm('Tem certeza que deseja deletar?'))
         element.parentNode.remove()
 }
 
-
+//escutador para executar o submit no html
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -56,7 +52,6 @@ form.addEventListener('submit', (event) => {
         return alert('Digite a url da maneira correta.')
 
     addElement({ name, url })
-    adicionarurl({ name , url})
 
     input.value = ''
 })
